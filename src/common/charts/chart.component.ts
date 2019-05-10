@@ -39,6 +39,7 @@ import { TooltipService } from '../tooltip';
         [height]="view[1]"
         [width]="legendWidth"
         [activeEntries]="activeEntries"
+        [overwriteActiveEntries]="overwriteActiveEntries"
         (labelClick)="legendLabelClick.emit($event)"
         (labelActivate)="legendLabelActivate.emit($event)"
         (labelDeactivate)="legendLabelDeactivate.emit($event)"
