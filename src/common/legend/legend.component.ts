@@ -47,7 +47,6 @@ export class LegendComponent implements OnChanges {
   @Input() height;
   @Input() width;
   @Input() activeEntries;
-  @Input() overwriteActiveEntries;
   @Input() horizontal = false;
 
   @Output() labelClick: EventEmitter<any> = new EventEmitter();

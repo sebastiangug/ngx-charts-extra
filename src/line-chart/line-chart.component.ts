@@ -27,7 +27,6 @@ import { getUniqueXDomainValues, getScaleType } from '../common/domain.helper';
       [showLegend]="legend"
       [legendOptions]="legendOptions"
       [activeEntries]="activeEntries"
-      [overwriteActiveEntries]="overwriteActiveEntries"
       [animations]="animations"
       (legendLabelClick)="onClick($event)"
       (legendLabelActivate)="onActivate($event)"

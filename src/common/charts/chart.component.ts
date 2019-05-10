@@ -39,7 +39,6 @@ import { TooltipService } from '../tooltip';
         [height]="view[1]"
         [width]="legendWidth"
         [activeEntries]="activeEntries"
-        [overwriteActiveEntries]="overwriteActiveEntries"
         (labelClick)="legendLabelClick.emit($event)"
         (labelActivate)="legendLabelActivate.emit($event)"
         (labelDeactivate)="legendLabelDeactivate.emit($event)"
@@ -65,7 +64,6 @@ export class ChartComponent implements OnChanges {
   @Input() legendType: any;
   @Input() colors: any;
   @Input() activeEntries: any[];
-  @Input() overwriteActiveEntries: boolean = false;
   @Input() animations: boolean = true;
 
   @Output() legendLabelClick: EventEmitter<any> = new EventEmitter();

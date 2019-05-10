@@ -91,10 +91,6 @@ var LegendComponent = /** @class */ (function () {
     __decorate([
         Input(),
         __metadata("design:type", Object)
-    ], LegendComponent.prototype, "overwriteActiveEntries", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object)
     ], LegendComponent.prototype, "horizontal", void 0);
     __decorate([
         Output(),
