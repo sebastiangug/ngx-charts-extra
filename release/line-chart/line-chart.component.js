@@ -220,8 +220,6 @@ var LineChartComponent = /** @class */ (function (_super) {
         if (extra) {
             data.extra = series.extra;
         }
-        console.log(data);
-        console.log(extra);
         this.select.emit(data);
     };
     LineChartComponent.prototype.trackBy = function (index, item) {
@@ -287,6 +285,9 @@ var LineChartComponent = /** @class */ (function (_super) {
                 return;
             }
             this.activeEntries = [item];
+        }
+        else {
+            this.activeEntries = this.activeEntries.slice();
         }
     };
     LineChartComponent.prototype.onDeactivate = function (item) {
