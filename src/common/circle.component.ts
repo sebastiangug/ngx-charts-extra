@@ -8,6 +8,7 @@ import {
   ChangeDetectionStrategy,
   HostListener
 } from '@angular/core';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'g[ngx-charts-circle]',
@@ -26,7 +27,6 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CircleComponent implements OnChanges {
-
   @Input() cx;
   @Input() cy;
   @Input() r;
@@ -57,10 +57,7 @@ export class CircleComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.classNames = Array.isArray(this.classNames) ?
-      this.classNames.join(' ') : 
-      '';
+    this.classNames = Array.isArray(this.classNames) ? this.classNames.join(' ') : '';
     this.classNames += 'circle';
   }
-
 }

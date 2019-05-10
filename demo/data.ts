@@ -3,27 +3,33 @@ import { data as countries } from 'emoji-flags';
 export const single = [
   {
     name: 'Germany',
-    value: 40632
+    value: 40632,
+    extra: { something: 1, somethingElse: 2 }
   },
   {
     name: 'United States',
-    value: 49737
+    value: 49737,
+    extra: { something: 1, somethingElse: 2 }
   },
   {
     name: 'France',
-    value: 36745
+    value: 36745,
+    extra: { something: 1, somethingElse: 2 }
   },
   {
     name: 'United Kingdom',
-    value: 36240
+    value: 36240,
+    extra: { something: 1, somethingElse: 2 }
   },
   {
     name: 'Spain',
-    value: 33000
+    value: 33000,
+    extra: { something: 1, somethingElse: 2 }
   },
   {
     name: 'Italy',
-    value: 35800
+    value: 35800,
+    extra: { something: 1, somethingElse: 2 }
   }
 ];
 
@@ -33,15 +39,18 @@ export const multi = [
     series: [
       {
         name: '2010',
-        value: 40632
+        value: 40632,
+        extra: { something: 1, somethingElse: 2 }
       },
       {
         name: '2000',
-        value: 36953
+        value: 36953,
+        extra: { something: 1, somethingElse: 2 }
       },
       {
         name: '1990',
-        value: 31476
+        value: 31476,
+        extra: { something: 1, somethingElse: 2 }
       }
     ]
   },
@@ -50,15 +59,18 @@ export const multi = [
     series: [
       {
         name: '2010',
-        value: 49737
+        value: 49737,
+        extra: { something: 1, somethingElse: 2 }
       },
       {
         name: '2000',
-        value: 45986
+        value: 45986,
+        extra: { something: 1, somethingElse: 2 }
       },
       {
         name: '1990',
-        value: 37060
+        value: 37060,
+        extra: { something: 1, somethingElse: 2 }
       }
     ]
   },
@@ -67,15 +79,18 @@ export const multi = [
     series: [
       {
         name: '2010',
-        value: 36745
+        value: 36745,
+        extra: { something: 1, somethingElse: 2 }
       },
       {
         name: '2000',
-        value: 34774
+        value: 34774,
+        extra: { something: 1, somethingElse: 2 }
       },
       {
         name: '1990',
-        value: 29476
+        value: 29476,
+        extra: { something: 1, somethingElse: 2 }
       }
     ]
   },
@@ -84,15 +99,18 @@ export const multi = [
     series: [
       {
         name: '2010',
-        value: 36240
+        value: 36240,
+        extra: { something: 1, somethingElse: 2 }
       },
       {
         name: '2000',
-        value: 32543
+        value: 32543,
+        extra: { something: 1, somethingElse: 2 }
       },
       {
         name: '1990',
-        value: 26424
+        value: 26424,
+        extra: { something: 1, somethingElse: 2 }
       }
     ]
   }
@@ -104,11 +122,13 @@ export const fiscalYearReport = [
     series: [
       {
         name: '1001',
-        value: -10632
+        value: -10632,
+        extra: { something: 1, somethingElse: 2 }
       },
       {
         name: '2001',
-        value: -36953
+        value: -36953,
+        extra: { something: 1, somethingElse: 2 }
       }
     ]
   },
@@ -117,11 +137,13 @@ export const fiscalYearReport = [
     series: [
       {
         name: '1001',
-        value: -19737
+        value: -19737,
+        extra: { something: 1, somethingElse: 2 }
       },
       {
         name: '2001',
-        value: 45986
+        value: 45986,
+        extra: { something: 1, somethingElse: 2 }
       }
     ]
   },
@@ -130,11 +152,13 @@ export const fiscalYearReport = [
     series: [
       {
         name: '1001',
-        value: -16745
+        value: -16745,
+        extra: { something: 1, somethingElse: 2 }
       },
       {
         name: '2001',
-        value: 34774
+        value: 34774,
+        extra: { something: 1, somethingElse: 2 }
       }
     ]
   },
@@ -143,11 +167,13 @@ export const fiscalYearReport = [
     series: [
       {
         name: '1001',
-        value: -16240
+        value: -16240,
+        extra: { something: 1, somethingElse: 2 }
       },
       {
         name: '2001',
-        value: 32543
+        value: 32543,
+        extra: { something: 1, somethingElse: 2 }
       }
     ]
   }
@@ -314,12 +340,14 @@ export function generateData(seriesLength: number, includeMinMaxRange: boolean, 
           value,
           name: timestamp,
           min: Math.floor(value * (1 - errorMargin)),
-          max: Math.ceil(value * (1 + errorMargin))
+          max: Math.ceil(value * (1 + errorMargin)),
+          extra: { anything: Math.floor(value * 0.25) }
         });
       } else {
         series.series.push({
           value,
-          name: timestamp
+          name: timestamp,
+          extra: { anything: Math.floor(value * 0.25) }
         });
       }
     }

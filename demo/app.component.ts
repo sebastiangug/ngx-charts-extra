@@ -249,6 +249,7 @@ export class AppComponent implements OnInit {
 
     this.dateData = generateData(5, false);
     this.dateDataWithRange = generateData(2, true);
+
     this.setColorScheme('cool');
     this.calendarData = this.getCalendarData();
     this.statusData = this.getStatusData();
@@ -703,5 +704,10 @@ export class AppComponent implements OnInit {
 
   dblclick(event) {
     console.log('Doube click', event);
+  }
+
+  public get getChangeDetector() {
+    console.log('change detection');
+    return true;
   }
 }
