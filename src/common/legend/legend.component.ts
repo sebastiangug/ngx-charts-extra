@@ -1,7 +1,14 @@
 import {
-  Component, Input, ChangeDetectionStrategy, Output, EventEmitter,
-  SimpleChanges, OnChanges, ChangeDetectorRef, ViewEncapsulation
- } from '@angular/core';
+  Component,
+  Input,
+  ChangeDetectionStrategy,
+  Output,
+  EventEmitter,
+  SimpleChanges,
+  OnChanges,
+  ChangeDetectorRef,
+  ViewEncapsulation
+} from '@angular/core';
 import { formatLabel } from '../label.helper';
 
 @Component({
@@ -9,15 +16,11 @@ import { formatLabel } from '../label.helper';
   template: `
     <div [style.width.px]="width">
       <header class="legend-title" *ngIf="title?.length > 0">
-        <span class="legend-title-text">{{title}}</span>
+        <span class="legend-title-text">{{ title }}</span>
       </header>
       <div class="legend-wrap">
-        <ul class="legend-labels"
-            [class.horizontal-legend]="horizontal"
-          [style.max-height.px]="height - 45">
-          <li
-            *ngFor="let entry of legendEntries; trackBy: trackBy"
-            class="legend-label">
+        <ul class="legend-labels" [class.horizontal-legend]="horizontal" [style.max-height.px]="height - 45">
+          <li *ngFor="let entry of legendEntries; trackBy: trackBy" class="legend-label">
             <ngx-charts-legend-entry
               [label]="entry.label"
               [formattedLabel]="entry.formattedLabel"
@@ -25,7 +28,8 @@ import { formatLabel } from '../label.helper';
               [isActive]="isActive(entry)"
               (select)="labelClick.emit($event)"
               (activate)="activate($event)"
-              (deactivate)="deactivate($event)">
+              (deactivate)="deactivate($event)"
+            >
             </ngx-charts-legend-entry>
           </li>
         </ul>
@@ -37,13 +41,13 @@ import { formatLabel } from '../label.helper';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LegendComponent implements OnChanges {
-
   @Input() data;
   @Input() title;
   @Input() colors;
   @Input() height;
   @Input() width;
   @Input() activeEntries;
+  @Input() overwriteActiveEntries;
   @Input() horizontal = false;
 
   @Output() labelClick: EventEmitter<any> = new EventEmitter();
@@ -52,7 +56,7 @@ export class LegendComponent implements OnChanges {
 
   legendEntries: any[] = [];
 
-  constructor(private cd: ChangeDetectorRef) { }
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.update();
@@ -66,10 +70,10 @@ export class LegendComponent implements OnChanges {
   getLegendEntries(): any[] {
     const items = [];
 
-    for(const label of this.data) {
+    for (const label of this.data) {
       const formattedLabel = formatLabel(label);
 
-      const idx = items.findIndex((i) => {
+      const idx = items.findIndex(i => {
         return i.label === formattedLabel;
       });
 
@@ -86,7 +90,7 @@ export class LegendComponent implements OnChanges {
   }
 
   isActive(entry): boolean {
-    if(!this.activeEntries) return false;
+    if (!this.activeEntries) return false;
     const item = this.activeEntries.find(d => {
       return entry.label === d.name;
     });
@@ -104,5 +108,4 @@ export class LegendComponent implements OnChanges {
   trackBy(index, item): string {
     return item.label;
   }
-
 }
