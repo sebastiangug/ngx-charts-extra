@@ -26,7 +26,7 @@ import { getUniqueXDomainValues, getScaleType } from '../common/domain.helper';
       [view]="[width, height]"
       [showLegend]="legend"
       [legendOptions]="legendOptions"
-      [activeEntries]="activeEntries"
+      [activeEntries]="_activeEntries"
       [animations]="animations"
       (legendLabelClick)="onClick($event)"
       (legendLabelActivate)="onActivate($event)"
@@ -82,7 +82,7 @@ import { getUniqueXDomainValues, getScaleType } from '../common/domain.helper';
               [yScale]="yScale"
               [colors]="colors"
               [data]="series"
-              [activeEntries]="activeEntries"
+              [activeEntries]="_activeEntries"
               [scaleType]="scaleType"
               [curve]="curve"
               [rangeFillOpacity]="rangeFillOpacity"
@@ -114,7 +114,7 @@ import { getUniqueXDomainValues, getScaleType } from '../common/domain.helper';
                 [data]="series"
                 [scaleType]="scaleType"
                 [visibleValue]="hoveredVertical"
-                [activeEntries]="activeEntries"
+                [activeEntries]="_activeEntries"
                 [tooltipDisabled]="tooltipDisabled"
                 [tooltipTemplate]="tooltipTemplate"
                 (select)="onClick($event, series, extra)"
@@ -188,7 +188,11 @@ export class LineChartComponent extends BaseChartComponent {
   @Input() gradient: boolean;
   @Input() showGridLines: boolean = true;
   @Input() curve: any = curveLinear;
-  @Input() activeEntries: any[] = [];
+  @Input('activeEntries')
+  set activeEntries(entries: any[]) {
+    this._activeEntries = entries;
+  }
+
   @Input() overwriteActiveEntries: boolean = false;
   @Input() schemeType: string;
   @Input() rangeFillOpacity: number;
@@ -245,7 +249,7 @@ export class LineChartComponent extends BaseChartComponent {
   timelineXDomain: any;
   timelineTransform: any;
   timelinePadding: number = 10;
-  _activeEntries: any[] = [];
+  _activeEntries: any[];
 
   update(): void {
     super.update();
@@ -484,64 +488,43 @@ export class LineChartComponent extends BaseChartComponent {
   }
 
   onActivate(item) {
-    this.deactivateAll();
-
-    const idx = this._activeEntries.findIndex(d => {
-      return d.name === item.name && d.value === item.value;
-    });
-
-    if (idx > -1) {
-      return;
-    }
-
-    this._activeEntries = [item];
-    this.activate.emit({ value: item, entries: this._activeEntries });
-
-    // if we don't overwrite active entries -- we mirror _activeEntries
-    // therefore if this is set to true, the code will not run and the chart
-    // will rely on the user to manage activeEntries via the input property
     if (!this.overwriteActiveEntries) {
-      const _idx = this.activeEntries.findIndex(d => {
+      this.deactivateAll();
+
+      const idx = this._activeEntries.findIndex(d => {
         return d.name === item.name && d.value === item.value;
       });
 
-      if (_idx > -1) {
+      if (idx > -1) {
         return;
       }
-      this.activeEntries = [item];
-    } else {
-      this.activeEntries = [...this.activeEntries];
+
+      this._activeEntries = [item];
+      this.activate.emit({ value: item, entries: this._activeEntries });
     }
   }
 
   onDeactivate(item) {
-    const idx = this._activeEntries.findIndex(d => {
-      return d.name === item.name && d.value === item.value;
-    });
-
-    this._activeEntries.splice(idx, 1);
-    this._activeEntries = [...this._activeEntries];
-    this.deactivate.emit({ value: item, entries: this._activeEntries });
-
     // if we don't overwrite active entries -- we mirror _activeEntries
     if (!this.overwriteActiveEntries) {
-      const _idx = this.activeEntries.findIndex(d => {
+      const idx = this._activeEntries.findIndex(d => {
         return d.name === item.name && d.value === item.value;
       });
-      this.activeEntries.splice(_idx, 1);
+
+      this._activeEntries.splice(idx, 1);
+      this._activeEntries = [...this._activeEntries];
+      this.deactivate.emit({ value: item, entries: this._activeEntries });
     }
   }
 
   deactivateAll() {
-    this._activeEntries = [...this._activeEntries];
-    for (const entry of this._activeEntries) {
-      this.deactivate.emit({ value: entry, entries: [] });
-    }
-    this._activeEntries = [];
-
     // if we don't overwrite active entries -- we mirror _activeEntries
     if (!this.overwriteActiveEntries) {
-      this.activeEntries = [];
+      this._activeEntries = [...this._activeEntries];
+      for (const entry of this._activeEntries) {
+        this.deactivate.emit({ value: entry, entries: [] });
+      }
+      this._activeEntries = [];
     }
   }
 }

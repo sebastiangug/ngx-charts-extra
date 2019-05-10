@@ -101,6 +101,8 @@ export class AppComponent implements OnInit {
   rotateXAxisTicks = true;
   maxXAxisTickLength = 16;
   maxYAxisTickLength = 16;
+  activeEntries = [];
+  overwriteActiveEntries = true;
 
   curves = {
     Basis: shape.curveBasis,
@@ -431,6 +433,29 @@ export class AppComponent implements OnInit {
   }
 
   select(data) {
+    // IF YOU CLICK ON LEGEND, EVENT WILL BE A STRING
+    if (typeof data === 'string') {
+      // IF ITS ALREADY IN THE ACTIVE ELEMENTS ARRAY, WE WILL REMOVE IT
+      if (this.activeEntries.some(item => item.name === data)) {
+        const index = this.activeEntries.findIndex(i => {
+          if (i.name === data) {
+            return true;
+          } else {
+            return;
+          }
+        });
+
+        if (index > -1) {
+          this.activeEntries.splice(index, 1);
+        }
+
+        // IF ITS NOT IN THE ACTIVE ELEMENT ARRAY, WE WILL PUSH IT TO ARRAY
+      } else {
+        this.activeEntries.push({ name: data });
+      }
+      this.activeEntries = [...this.activeEntries];
+    }
+    console.log(this.activeEntries);
     console.log('Item clicked', data);
   }
 
