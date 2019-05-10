@@ -436,10 +436,6 @@ export class LineChartComponent extends BaseChartComponent {
     if (extra) {
       data.extra = series.extra;
     }
-
-    console.log(data);
-    console.log(extra);
-
     this.select.emit(data);
   }
 
@@ -513,6 +509,8 @@ export class LineChartComponent extends BaseChartComponent {
         return;
       }
       this.activeEntries = [item];
+    } else {
+      this.activeEntries = [...this.activeEntries];
     }
   }
 
