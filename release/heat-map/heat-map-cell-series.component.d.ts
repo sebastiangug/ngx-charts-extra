@@ -21,5 +21,5 @@ export declare class HeatCellSeriesComponent implements OnChanges, OnInit {
         series: any;
     }): string;
     trackBy(index: any, item: any): string;
-    onClick(value: any, label: any, series: any): void;
+    onClick(value: any, label: any, series: any, extra: any): void;
 }
