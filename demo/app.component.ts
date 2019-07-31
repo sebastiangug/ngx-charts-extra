@@ -337,15 +337,18 @@ export class AppComponent implements OnInit {
         series: [
           {
             name: '1990',
-            value: Math.floor(10000 + Math.random() * 50000)
+            value: Math.floor(10000 + Math.random() * 50000),
+            extra: ['#test', '#test2Extra', '#testExtraArray']
           },
           {
             name: '2000',
-            value: Math.floor(10000 + Math.random() * 50000)
+            value: Math.floor(10000 + Math.random() * 50000),
+            extra: ['#test', '#test2Extra', '#testExtraArray']
           },
           {
             name: '2010',
-            value: Math.floor(10000 + Math.random() * 50000)
+            value: Math.floor(10000 + Math.random() * 50000),
+            extra: ['#test', '#test2Extra', '#testExtraArray']
           }
         ]
       };
@@ -732,7 +735,7 @@ export class AppComponent implements OnInit {
   }
 
   public get getChangeDetector() {
-    console.log('change detection');
+    // console.log('change detection');
     return true;
   }
 }
