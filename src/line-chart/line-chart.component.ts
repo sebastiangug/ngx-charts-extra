@@ -117,7 +117,7 @@ import { getUniqueXDomainValues, getScaleType } from '../common/domain.helper';
                 [activeEntries]="_activeEntries"
                 [tooltipDisabled]="tooltipDisabled"
                 [tooltipTemplate]="tooltipTemplate"
-                (select)="onClick($event, series, extra)"
+                (select)="onClick($event, series)"
                 (activate)="onActivate($event)"
                 (deactivate)="onDeactivate($event)"
               />
@@ -249,7 +249,7 @@ export class LineChartComponent extends BaseChartComponent {
   timelineXDomain: any;
   timelineTransform: any;
   timelinePadding: number = 10;
-  _activeEntries: any[];
+  _activeEntries: any[] = [];
 
   update(): void {
     super.update();
